@@ -3,17 +3,19 @@ package cl.utem.dist.proyecto.persistencia.administrador;
 import cl.utem.dist.proyecto.persistencia.modelo.Micro;
 import cl.utem.dist.proyecto.persistencia.modelo.TipoRecorrido;
 import cl.utem.dist.proyecto.persistencia.repositorio.MicroRepositorio;
+import cl.utem.dist.proyecto.utils.RecorridoUtils;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("microAdministrador")
-public class MicroAdministrador {
+public class MicroAdministrador implements Serializable {
+
+    private static final long serialVersionUID = 5868961591851440128L;
 
     @Autowired
     private transient MicroRepositorio microRepositorio;
@@ -58,7 +60,15 @@ public class MicroAdministrador {
     public Micro crear(final String linea) {
         Micro micro = null;
         if (StringUtils.isNotBlank(linea)) {
-
+            String recorrido = RecorridoUtils.getRecorrido(linea);
+            TipoRecorrido tipoRecorrido = RecorridoUtils.getTipoRecorrido(linea);
+            micro = microRepositorio.findByRecorridoAndTipo(recorrido, tipoRecorrido);
+            if (micro == null) {
+                Micro nuevaMicro = new Micro();
+                nuevaMicro.setRecorrido(recorrido);
+                nuevaMicro.setTipo(tipoRecorrido);
+                micro = microRepositorio.save(nuevaMicro);
+            }
         }
         return micro;
     }
