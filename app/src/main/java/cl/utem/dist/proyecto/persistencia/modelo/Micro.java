@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "microbuses")
-public class Micro {
+public class Micro extends BaseBean {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

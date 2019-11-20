@@ -67,7 +67,7 @@ public class HttpClientUtils implements Serializable {
         return response;
     }
 
-    public static HttpVO post(final String url, final BaseBean baseBean) {
+    public static HttpVO postJson(final String url, final BaseBean baseBean) {
         HttpVO response = null;
         try {
             if (StringUtils.isNotBlank(url)) {
@@ -78,6 +78,8 @@ public class HttpClientUtils implements Serializable {
                 // add request header
                 String json = JsonUtils.parse(baseBean);
                 post.addHeader("User-Agent", USER_AGENT);
+                post.addHeader("Content-Type", "application/json; charset=UTF-8");
+                post.addHeader("accept", "application/json; charset=UTF-8");
                 post.setEntity(new StringEntity(json, StandardCharsets.UTF_8));
 
                 HttpResponse responseHttp = client.execute(post);

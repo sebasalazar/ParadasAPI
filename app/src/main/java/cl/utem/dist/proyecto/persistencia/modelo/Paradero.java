@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "paraderos")
-public class Paradero {
+public class Paradero extends BaseBean {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

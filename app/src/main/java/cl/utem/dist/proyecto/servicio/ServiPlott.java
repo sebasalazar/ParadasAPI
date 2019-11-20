@@ -33,7 +33,7 @@ public class ServiPlott implements Serializable {
         try {
             AuthJwtVO authVO = new AuthJwtVO(username, password);
             String url = String.format("%s/api/user_token", SERVIPLOT_URL);
-            HttpVO post = HttpClientUtils.post(url, authVO);
+            HttpVO post = HttpClientUtils.postJson(url, authVO);
             if (post.isOk()) {
                 JWTVO vo = JsonUtils.getJWTVO(post.getResponse());
                 key = vo.getJwt();
@@ -64,7 +64,7 @@ public class ServiPlott implements Serializable {
         return buses;
     }
 
-    public List<ParadaVO> getParadas() {
+    public List<ParadaVO> getParaderos() {
         List<ParadaVO> paradas = new ArrayList<>();
         try {
             String jwt = getJwt();

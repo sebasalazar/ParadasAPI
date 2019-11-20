@@ -14,7 +14,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "paradas", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"micro_fk", "paradero_fk"})})
-public class Parada {
+public class Parada extends BaseBean {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

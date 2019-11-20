@@ -6,6 +6,8 @@ import com.example.vo.google.GeoCodeGoogleVO;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
@@ -76,7 +78,8 @@ public class GoogleService implements Serializable {
         GeoVO geo = null;
         try {
             if (StringUtils.isNotBlank(address)) {
-                String geoCodeUri = String.format(Locale.US, "%s?key=%s&address=%s", geocodeApiUrl, geocodeApiKey, address);
+                String geoCodeUri = String.format(Locale.US, "%s?key=%s&address=%s", geocodeApiUrl, geocodeApiKey,
+                        URLEncoder.encode(address, StandardCharsets.UTF_8.name()));
                 LOGGER.debug("Accediendo a: '{}'", geoCodeUri);
 
                 HttpClient client = HttpClientBuilder.create().build();
@@ -98,6 +101,8 @@ public class GoogleService implements Serializable {
 
                     String json = StringUtils.trimToEmpty(result.toString());
                     if (StringUtils.isNotBlank(json)) {
+                        LOGGER.info(json);
+
                         ObjectMapper mapper = new ObjectMapper();
                         GeoCodeGoogleVO resultGoogle = (GeoCodeGoogleVO) mapper.readValue(json, GeoCodeGoogleVO.class);
                         Double lat = resultGoogle.getResults().get(0).getGeometry().getLocation().getLat();
