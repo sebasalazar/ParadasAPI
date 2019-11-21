@@ -141,4 +141,34 @@ public class RecorridoRestImpl implements RecorridoRest, Serializable {
 
         return ResponseEntity.ok(vos);
     }
+
+    @Override
+    @RequestMapping(value = "/paradas", method = RequestMethod.GET, consumes = {"*/*"}, produces = "application/json; charset=UTF-8")
+    public ResponseEntity getParadas(@RequestParam(name = "numero") String numero, @RequestParam(name = "tipo") String tipo) {
+        List<ParadaVO> vos = new ArrayList<>();
+        TipoRecorrido tipoRecorrido = RecorridoUtils.getTipoRecorrido(tipo);
+        if (tipoRecorrido == null) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(new ErrorVO("El tipo de recorrido es incorrecto"));
+        }
+
+        if (StringUtils.isBlank(numero)) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(new ErrorVO("El número del microbus es obligatorio"));
+        }
+
+        Micro micro = microAdministrador.getMicro(numero, tipoRecorrido);
+        if (micro == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorVO("No se ha encontrado el microbus"));
+        }
+
+        List<Parada> paradas = paradaAdministrador.getParadas(micro);
+        if (CollectionUtils.isEmpty(paradas)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorVO("No se ha encontrado paradas"));
+        }
+
+        for (Parada parada : paradas) {
+            vos.add(new ParadaVO(parada));
+        }
+
+        return ResponseEntity.ok(vos);
+    }
 }
