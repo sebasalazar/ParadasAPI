@@ -4,6 +4,7 @@ import cl.utem.dist.proyecto.vo.response.ErrorVO;
 import cl.utem.dist.proyecto.vo.response.ResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +21,5 @@ public interface ServiplottRest {
         @ApiResponse(code = 412, message = "Ocurrió un error de validación", response = ErrorVO.class),
         @ApiResponse(code = 500, message = "Error interno del servidor.", response = ErrorVO.class)
     })
-    public ResponseEntity update();
+    public ResponseEntity update(@ApiParam(value = "ApiKey del usuario", required = true) final String apiKey);
 }

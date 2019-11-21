@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonRootName(value = "recorrido")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class RecorridoVO extends BaseBean {
 
     @JsonProperty("bus")
-    public BusVO bus;
+    public BusVO bus = null;
     @JsonProperty("horario")
-    public HorarioVO horario;
+    public HorarioVO horario = null;
     private final static long serialVersionUID = -2422060046200785259L;
 
     public BusVO getBus() {

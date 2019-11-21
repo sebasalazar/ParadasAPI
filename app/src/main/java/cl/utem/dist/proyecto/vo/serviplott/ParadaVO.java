@@ -5,26 +5,27 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ParadaVO implements Serializable {
 
     private final static long serialVersionUID = 5980017604701191681L;
 
-    private Integer id;
-@JsonProperty("codigo")
-private String codigo;
-@JsonProperty("nombre")
-private String nombre;
-@JsonProperty("lat")
-private Float lat;
-@JsonProperty("lng")
-private Float lng;
-@JsonProperty("comuna")
-private ComunaVO comuna;
-@JsonProperty("orientacion")
-private OrientacionVO orientacion;
-@JsonProperty("recorridos")
-private List<RecorridoVO> recorridos = null;
+    @JsonProperty("id")
+    private Integer id = null;
+    @JsonProperty("codigo")
+    private String codigo = null;
+    @JsonProperty("nombre")
+    private String nombre = null;
+    @JsonProperty("lat")
+    private Float lat = null;
+    @JsonProperty("lng")
+    private Float lng = null;
+    @JsonProperty("comuna")
+    private ComunaVO comuna = null;
+    @JsonProperty("orientacion")
+    private OrientacionVO orientacion = null;
+    @JsonProperty("recorridos")
+    private List<RecorridoVO> recorridos = null;
 
     public Integer getId() {
         return id;
@@ -50,6 +51,22 @@ private List<RecorridoVO> recorridos = null;
         this.nombre = nombre;
     }
 
+    public Float getLat() {
+        return lat;
+    }
+
+    public void setLat(Float lat) {
+        this.lat = lat;
+    }
+
+    public Float getLng() {
+        return lng;
+    }
+
+    public void setLng(Float lng) {
+        this.lng = lng;
+    }
+
     public ComunaVO getComuna() {
         return comuna;
     }
@@ -57,4 +74,21 @@ private List<RecorridoVO> recorridos = null;
     public void setComuna(ComunaVO comuna) {
         this.comuna = comuna;
     }
+
+    public OrientacionVO getOrientacion() {
+        return orientacion;
+    }
+
+    public void setOrientacion(OrientacionVO orientacion) {
+        this.orientacion = orientacion;
+    }
+
+    public List<RecorridoVO> getRecorridos() {
+        return recorridos;
+    }
+
+    public void setRecorridos(List<RecorridoVO> recorridos) {
+        this.recorridos = recorridos;
+    }
+
 }

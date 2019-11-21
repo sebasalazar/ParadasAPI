@@ -6,6 +6,7 @@ import cl.utem.dist.proyecto.vo.HttpVO;
 import cl.utem.dist.proyecto.vo.serviplott.AuthJwtVO;
 import cl.utem.dist.proyecto.vo.serviplott.BusVO;
 import cl.utem.dist.proyecto.vo.serviplott.JWTVO;
+import cl.utem.dist.proyecto.vo.serviplott.ParadaBusVO;
 import cl.utem.dist.proyecto.vo.serviplott.ParadaVO;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class ServiPlott implements Serializable {
     private static final String SERVIPLOT_URL = "http://red.serviplott.cl";
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiPlott.class);
 
-    private String getJwt() {
+    public String getJwt() {
         String key = StringUtils.EMPTY;
         try {
             AuthJwtVO authVO = new AuthJwtVO(username, password);
@@ -75,6 +76,27 @@ public class ServiPlott implements Serializable {
             }
         } catch (Exception e) {
             paradas = new ArrayList<>();
+            LOGGER.error("Error al obtener paradas: '{}'", e.getMessage());
+            LOGGER.debug("Error al obtener paradas: '{}'", e.getMessage(), e);
+        }
+
+        return paradas;
+    }
+
+    public ParadaBusVO getBusParada(String bus, String jwt) {
+        ParadaBusVO paradas = null;
+        try {
+            if (StringUtils.isBlank(jwt)) {
+                jwt = getJwt();
+            }
+
+            String url = String.format("%s/api/buses/numero/%s", SERVIPLOT_URL, bus);
+            HttpVO get = HttpClientUtils.get(url, jwt);
+            if (get.isOk()) {
+                paradas = JsonUtils.getParadaBusVO(get.getResponse());
+            }
+        } catch (Exception e) {
+            paradas = null;
             LOGGER.error("Error al obtener paradas: '{}'", e.getMessage());
             LOGGER.debug("Error al obtener paradas: '{}'", e.getMessage(), e);
         }

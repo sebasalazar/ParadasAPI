@@ -3,6 +3,7 @@ package cl.utem.dist.proyecto.utils;
 import cl.utem.dist.proyecto.persistencia.modelo.BaseBean;
 import cl.utem.dist.proyecto.vo.serviplott.BusVO;
 import cl.utem.dist.proyecto.vo.serviplott.JWTVO;
+import cl.utem.dist.proyecto.vo.serviplott.ParadaBusVO;
 import cl.utem.dist.proyecto.vo.serviplott.ParadaVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -106,6 +107,36 @@ public class JsonUtils implements Serializable {
         } catch (IOException e) {
             vos = new ArrayList<>();
             LOGGER.error("Error al convertir a ParadaVO: {}", e.getMessage());
+        }
+        return vos;
+    }
+
+    public static ParadaBusVO getParadaBusVO(final String json) {
+        ParadaBusVO vo = null;
+        try {
+            if (StringUtils.isNotBlank(json)) {
+                ObjectMapper mapper = new ObjectMapper();
+                vo = mapper.readValue(json, ParadaBusVO.class);
+            }
+        } catch (IOException e) {
+            vo = null;
+            LOGGER.error("Error al convertir a JWTVO: {}", e.getMessage());
+        }
+        return vo;
+    }
+
+    public static List<ParadaBusVO> getParadasBusesVO(final String json) {
+        List<ParadaBusVO> vos = new ArrayList<>();
+        try {
+            if (StringUtils.isNotBlank(json)) {
+                LOGGER.info("{}", json);
+                ObjectMapper mapper = new ObjectMapper();
+                vos = new ArrayList<>(mapper.readValue(json, new TypeReference<List<ParadaBusVO>>() {
+                }));
+            }
+        } catch (IOException e) {
+            vos = new ArrayList<>();
+            LOGGER.error("Error al convertir a ParadaBusVO: {}", e.getMessage());
         }
         return vos;
     }
