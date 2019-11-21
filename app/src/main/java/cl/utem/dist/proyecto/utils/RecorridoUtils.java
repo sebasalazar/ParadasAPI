@@ -25,7 +25,7 @@ public class RecorridoUtils implements Serializable {
         return recorrido;
     }
 
-    public static TipoRecorrido getTipoRecorrido(final String linea) {
+    public static TipoRecorrido getTipoRecorridoPorLineaBus(final String linea) {
         TipoRecorrido tipo = TipoRecorrido.NORMAL;
         if (StringUtils.isNotBlank(linea)) {
             String valor = StringUtils.upperCase(StringUtils.trimToEmpty(linea));
@@ -39,5 +39,24 @@ public class RecorridoUtils implements Serializable {
             }
         }
         return tipo;
+    }
+
+    public static TipoRecorrido getTipoRecorrido(final String tipo) {
+        TipoRecorrido tr = null;
+
+        String tipoStr = StringUtils.upperCase(StringUtils.trimToEmpty(tipo));
+        if (StringUtils.equalsIgnoreCase(tipoStr, TipoRecorrido.CORTO.name())) {
+            tr = TipoRecorrido.CORTO;
+        } else if (StringUtils.equalsIgnoreCase(tipoStr, TipoRecorrido.ESPECIAL.name())) {
+            tr = TipoRecorrido.ESPECIAL;
+        } else if (StringUtils.equalsIgnoreCase(tipoStr, TipoRecorrido.EXPRESO.name())) {
+            tr = TipoRecorrido.EXPRESO;
+        } else if (StringUtils.equalsIgnoreCase(tipoStr, TipoRecorrido.NORMAL.name())) {
+            tr = TipoRecorrido.NORMAL;
+        } else if (StringUtils.equalsIgnoreCase(tipoStr, TipoRecorrido.TEMPORAL.name())) {
+            tr = TipoRecorrido.TEMPORAL;
+        }
+
+        return tr;
     }
 }

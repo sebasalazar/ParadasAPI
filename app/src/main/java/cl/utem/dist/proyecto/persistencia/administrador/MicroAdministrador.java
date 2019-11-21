@@ -61,7 +61,7 @@ public class MicroAdministrador implements Serializable {
         Micro micro = null;
         if (StringUtils.isNotBlank(linea)) {
             String recorrido = RecorridoUtils.getRecorrido(linea);
-            TipoRecorrido tipoRecorrido = RecorridoUtils.getTipoRecorrido(linea);
+            TipoRecorrido tipoRecorrido = RecorridoUtils.getTipoRecorridoPorLineaBus(linea);
             micro = microRepositorio.findByRecorridoAndTipo(recorrido, tipoRecorrido);
             if (micro == null) {
                 Micro nuevaMicro = new Micro();

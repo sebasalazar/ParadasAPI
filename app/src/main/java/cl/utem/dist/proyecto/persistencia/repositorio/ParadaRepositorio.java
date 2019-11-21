@@ -15,4 +15,6 @@ public interface ParadaRepositorio extends JpaRepository<Parada, Long> {
     public List<Parada> findByMicro(Micro micro);
 
     public List<Parada> findByParadero(Paradero paradero);
+
+    public List<Parada> findByMicroRecorrido(String recorrido);
 }

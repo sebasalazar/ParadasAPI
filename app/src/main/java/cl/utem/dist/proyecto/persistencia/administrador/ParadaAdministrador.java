@@ -7,6 +7,7 @@ import cl.utem.dist.proyecto.persistencia.repositorio.ParadaRepositorio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,14 @@ public class ParadaAdministrador implements Serializable {
             parada = paradaRepositorio.findByMicroAndParadero(micro, paradero);
         }
         return parada;
+    }
+
+    public List<Parada> getParadas(final String numeroBus) {
+        List<Parada> paradas = new ArrayList<>();
+        if (StringUtils.isNotBlank(numeroBus)) {
+            paradas = paradaRepositorio.findByMicroRecorrido(numeroBus);
+        }
+        return paradas;
     }
 
     public List<Parada> getParadas(final Micro micro) {
