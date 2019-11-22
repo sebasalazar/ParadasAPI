@@ -123,7 +123,7 @@ public class RecorridoRestImpl implements RecorridoRest, Serializable {
     }
 
     @Override
-    @RequestMapping(value = "/paradas", method = RequestMethod.GET, consumes = {"*/*"}, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "/paradas/recorrido", method = RequestMethod.GET, consumes = {"*/*"}, produces = "application/json; charset=UTF-8")
     public ResponseEntity getParadas(@RequestParam(name = "numeroBus") String numeroBus) {
         List<ParadaVO> vos = new ArrayList<>();
         if (StringUtils.isBlank(numeroBus)) {
@@ -143,8 +143,8 @@ public class RecorridoRestImpl implements RecorridoRest, Serializable {
     }
 
     @Override
-    @RequestMapping(value = "/paradas", method = RequestMethod.GET, consumes = {"*/*"}, produces = "application/json; charset=UTF-8")
-    public ResponseEntity getParadas(@RequestParam(name = "numero") String numero, @RequestParam(name = "tipo") String tipo) {
+    @RequestMapping(value = "/paradas/microbus", method = RequestMethod.GET, consumes = {"*/*"}, produces = "application/json; charset=UTF-8")
+    public ResponseEntity getParadasByMicroBus(@RequestParam(name = "numero") String numero, @RequestParam(name = "tipo") String tipo) {
         List<ParadaVO> vos = new ArrayList<>();
         TipoRecorrido tipoRecorrido = RecorridoUtils.getTipoRecorrido(tipo);
         if (tipoRecorrido == null) {

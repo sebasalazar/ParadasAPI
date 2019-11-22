@@ -96,6 +96,6 @@ public interface RecorridoRest {
         @ApiResponse(code = 412, message = "Ocurrió un error de validación", response = ErrorVO.class),
         @ApiResponse(code = 500, message = "Error interno del servidor.", response = ErrorVO.class)
     })
-    public ResponseEntity getParadas(@ApiParam(value = "Número de recorrido del bus", required = true) final String numero,
+    public ResponseEntity getParadasByMicroBus(@ApiParam(value = "Número de recorrido del bus", required = true) final String numero,
             @ApiParam(value = "Tipo de Recorrido", required = true) final String tipo);
 }
