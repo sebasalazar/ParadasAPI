@@ -9,7 +9,7 @@ import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 
 @ApiModel(value = "error")
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ErrorVO extends BaseBean {
 
     private static final long serialVersionUID = 6314335557508817920L;
